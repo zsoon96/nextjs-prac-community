@@ -1,5 +1,8 @@
 import {Formik} from 'formik';
 
+// 이메일 주소 정규식 검증 코드
+const emailRegExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+
 export default function SignIn() {
     return (
         <div className='container'>
@@ -12,7 +15,17 @@ export default function SignIn() {
                 }}
                 // 유효성 체크인
                 validate={values => {
-
+                    const errors = {}
+                    if ( !values.email ) {
+                        errors.email = '이메일은 필수 입력 항목입니다.'
+                    }
+                    else if ( !emailRegExp.test(values.email) ) {
+                        errors.email = '이메일 형식이 올바르지 않습니다.'
+                    }
+                    else if ( !values.password ) {
+                        errors.password = '비밀번호는 필수 입력 항목입니다.'
+                    }
+                    return errors;
                 }}
                 // 데이터 전송
                 onSubmit={values => {
