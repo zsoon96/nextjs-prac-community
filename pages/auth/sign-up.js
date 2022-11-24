@@ -1,8 +1,10 @@
 import {useCallback, useMemo, useState} from "react";
 import axios from 'axios';
+import {useRouter} from "next/router";
 
 
 export default function SignUp() {
+    const router = useRouter()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
@@ -32,6 +34,7 @@ export default function SignUp() {
 
         // error가 한개라도 있으면 제출 x
         if (Object.keys(errors).length > 0) {
+            alert('입력값을 확인해주세요!')
             return;
         }
 
@@ -42,9 +45,9 @@ export default function SignUp() {
         })
             .then(() => {
                 alert('회원가입 완료')
+                router.push('/auth/sign-in')
             })
             .catch((error) => {
-                console.log(error)
                 alert(error.response?.data?.message ?? error.message ?? '서버와의 통신에 실패하였습니다.')
             })
     }, [email, password, name, errors])
@@ -85,11 +88,10 @@ export default function SignUp() {
                     />
                     <p className='text-danger mt-2'>{errors.name && touchedName && errors.name}</p>
                 </div>
+                <div>
+                    <button className='btn btn-primary'>회원가입</button>
+                </div>
             </form>
-
-            <div>
-                <button className='btn btn-primary'>회원가입</button>
-            </div>
         </div>
     )
 }
