@@ -30,10 +30,18 @@ export default function SignIn() {
                     return errors;
                 }}
                 // 데이터 전송
-                onSubmit={values => {
+                // setSubmitting: 폼 전송 시 진행상태 관리 (로딩 표시로 활용)
+                onSubmit={ (values, {setSubmitting} ) => {
+                    setSubmitting(true)
                     axios.post('http://localhost:3333/auth/sign-in', values)
                         .then(response => console.log(response.data))
-                        .catch(error => console.warn(error))
+                        .catch(error => {
+                            console.warn(error)
+                            alert(error.response?.data?.message ?? error.message ?? '서버와의 통신에 실패하였습니다.')
+                        })
+                        .finally(() => {
+                            setSubmitting(false)
+                        })
                 }}
             >
                 {
@@ -65,7 +73,7 @@ export default function SignIn() {
                                 <p className='text-danger mt-2'>{ errors.password && touched.password && errors.password }</p>
                             </div>
                             <div>
-                                <button type='submit' className='btn btn-primary'>로그인</button>
+                                <button type='submit' className='btn btn-primary'>{isSubmitting ? '로그인 중' : '로그인'}</button>
                             </div>
                         </form>
                     )
