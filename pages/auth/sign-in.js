@@ -5,6 +5,7 @@ import axios from "axios";
 const emailRegExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
 export default function SignIn() {
+    console.log('ppp', process.env.API_HOST)
     return (
         <div className='container'>
             <h1>로그인</h1>
@@ -33,7 +34,7 @@ export default function SignIn() {
                 // setSubmitting: 폼 전송 시 진행상태 관리 (로딩 표시로 활용)
                 onSubmit={ (values, {setSubmitting} ) => {
                     setSubmitting(true)
-                    axios.post('http://localhost:3333/auth/sign-in', values)
+                    axios.post(process.env.API_HOST + '/auth/sign-in', values)
                         .then(response => console.log(response.data))
                         .catch(error => {
                             console.warn(error)

@@ -38,7 +38,7 @@ export default function SignUp() {
             return;
         }
 
-        axios.post('http://localhost:3333/auth/sign-up', {
+        axios.post(process.env.API_HOST + '/auth/sign-up', {
             email,
             password,
             name
