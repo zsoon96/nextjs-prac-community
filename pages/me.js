@@ -14,7 +14,7 @@ export default function Me() {
     </div>
 }
 
-export const  getServerSideProps = async ( {req} ) => {
+export const  getServerSideProps = async ( {req,resolvedUrl} ) => {
     const cookie = new Cookies(req.headers.cookie)
     const token = cookie.get('token')
     if ( token ) {
@@ -26,7 +26,8 @@ export const  getServerSideProps = async ( {req} ) => {
         return {
             // redirect 통해 토큰이 없을 경우 로그인 페이지로 이동
             redirect: {
-                destination: '/auth/sign-in',
+                // 로그인 완료 후, 이동할 페이지 경로 전달
+                destination: '/auth/sign-in?ref=' + resolvedUrl,
                 permanent: false
             }
         }
