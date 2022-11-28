@@ -7,8 +7,12 @@ body {
 }
 
 a {
-  color: inherit;
+  color: black;
   text-decoration: none;
+}
+
+div.btn-link {
+  color: black
 }
 
 * {

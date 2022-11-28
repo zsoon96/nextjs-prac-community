@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
 import Cookies from 'universal-cookie';
+import Layout from "../components/Layout";
 
 export default function Me() {
     const [profile, setProfile] = useState({})
@@ -11,16 +12,18 @@ export default function Me() {
             .catch(error => console.warn(error))
     }, [])
 
-    return <div className='container'>
-        <d1>
-            <dt>이메일</dt>
-            <dd>{profile.email}</dd>
-            <dt>이름</dt>
-            <dd>{profile.name}</dd>
-            <dt>가입일시</dt>
-            <dd>{profile.created_at}</dd>
-        </d1>
-    </div>
+    return <Layout>
+        <div className='container'>
+            <d1>
+                <dt>이메일</dt>
+                <dd>{profile.email}</dd>
+                <dt>이름</dt>
+                <dd>{profile.name}</dd>
+                <dt>가입일시</dt>
+                <dd>{profile.created_at}</dd>
+            </d1>
+        </div>
+    </Layout>
 }
 
 export const getServerSideProps = async ({req, resolvedUrl}) => {
