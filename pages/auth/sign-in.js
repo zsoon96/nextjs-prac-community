@@ -3,12 +3,15 @@ import axios from "axios";
 import {useRouter} from "next/router";
 // 브라우저, 서버 모두 가능
 import Cookies from 'universal-cookie';
+import {useAtom} from "jotai";
+import authAtom from "../../stores/authAtom";
 
 // 이메일 주소 정규식 검증 코드
 const emailRegExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
 export default function SignIn() {
     const router = useRouter()
+    const [auth, setAuth] = useAtom(authAtom)
     return (
         <div className='container'>
             <h1>로그인</h1>
@@ -47,6 +50,7 @@ export default function SignIn() {
                             // 쿠키를 사용하여 로그인(토큰) 유지
                             // cookies.set('저장명', 데이터, 쿠키 적용 범위)
                             cookies.set( 'token', token, { path: '/'})
+                            setAuth({ token })
                             // router.query.ref에 값이 있으면 ref 뒤 경로로 이동하고, 없으면 me로 이동
                             router.push(router.query.ref ?? '/me')
                         })

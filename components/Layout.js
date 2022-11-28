@@ -1,11 +1,14 @@
 import Link from "next/link";
+import {useAtom} from "jotai";
+import authAtom from "../stores/authAtom";
 
 export default function Layout({children}) {
+    const [auth, setAuth] = useAtom(authAtom)
     return (
         <div className='flex flex-col'>
             <header className='container flex flex-row justify-between py-2'>
                 <Link href='/'>
-                   <div className='btn btn-link -ml-2'>Community</div>
+                    <div className='btn btn-link -ml-2'>Community</div>
                 </Link>
 
                 <div className='flex flex-row -mr-2'>
@@ -18,9 +21,12 @@ export default function Layout({children}) {
                     <Link href='/'>
                         <div className='btn btn-link'>질문 게시판</div>
                     </Link>
-                    <Link href='/me'>
+
+                    {auth.token ? (<Link href='/me'>
                         <div className='btn btn-link'>내 정보</div>
-                    </Link>
+                    </Link>) : (<Link href='/auth/sign-in'>
+                        <div className='btn btn-link'>로그인</div>
+                    </Link>)}
                 </div>
             </header>
             <main className='flex-1'>
