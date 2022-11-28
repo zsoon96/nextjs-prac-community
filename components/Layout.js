@@ -5,10 +5,10 @@ export default function Layout({children}) {
         <div className='flex flex-col'>
             <header className='container flex flex-row justify-between py-2'>
                 <Link href='/'>
-                   <div className='btn btn-link -ml-3'>Community</div>
+                   <div className='btn btn-link -ml-2'>Community</div>
                 </Link>
 
-                <div className='flex flex-row -mr-4'>
+                <div className='flex flex-row -mr-2'>
                     <Link href='/'>
                         <div className='btn btn-link'>홈</div>
                     </Link>
