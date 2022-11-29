@@ -50,7 +50,7 @@ export default function SignIn() {
                             // 쿠키를 사용하여 로그인(토큰) 유지
                             // cookies.set('저장명', 데이터, 쿠키 적용 범위)
                             cookies.set( 'token', token, { path: '/'})
-                            setAuth({ token })
+                            setAuth(auth => ({ ...auth, token }))
                             // router.query.ref에 값이 있으면 ref 뒤 경로로 이동하고, 없으면 me로 이동
                             router.push(router.query.ref ?? '/me')
                         })

@@ -2,13 +2,30 @@ import '../styles/globals.css'
 import Head from "next/head";
 import Cookies from 'universal-cookie'
 import axios from "axios";
+import authAtom from "../stores/authAtom";
+import {useAtom} from "jotai";
+import {useEffect} from "react";
 
 function MyApp({ Component, pageProps }) {
     const cookie = new Cookies()
     const token = cookie.get('token')
+    const [, setAuth] = useAtom(authAtom)
     if (token) {
         axios.defaults.headers.common.Authorization = `Bearer ${token}`
     }
+
+    useEffect(()=>{
+        // 토큰 여부 체크
+        if ( token ) {
+            setAuth(auth => ({...auth, token}))
+            axios.get(process.env.API_HOST + '/me')
+                .then(response => setAuth(auth => ({...auth, user: response.data})))
+                .catch(error => console.log(error))
+                .finally(() => setAuth(auth => ({ ...auth, loaded: true})))
+        } else {
+            setAuth(auth => ({ ...auth, loaded: true}))
+        }
+    },[])
   return(
       <>
         <Head>

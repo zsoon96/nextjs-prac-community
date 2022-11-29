@@ -22,11 +22,11 @@ export default function Layout({children}) {
                         <div className='btn btn-link'>질문 게시판</div>
                     </Link>
 
-                    {auth.token ? (<Link href='/me'>
+                    {!auth.loaded ? (<>로딩중</>) : (<>{auth.user ? (<Link href='/me'>
                         <div className='btn btn-link'>내 정보</div>
                     </Link>) : (<Link href='/auth/sign-in'>
                         <div className='btn btn-link'>로그인</div>
-                    </Link>)}
+                    </Link>)}</>)}
                 </div>
             </header>
             <main className='flex-1'>
