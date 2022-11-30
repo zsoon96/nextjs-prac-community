@@ -15,10 +15,10 @@ export default function Layout({children}) {
                     <Link href='/'>
                         <div className='btn btn-link'>홈</div>
                     </Link>
-                    <Link href='/'>
+                    <Link href='/articles/general'>
                         <div className='btn btn-link'>일반 게시판</div>
                     </Link>
-                    <Link href='/'>
+                    <Link href='/articles/ask'>
                         <div className='btn btn-link'>질문 게시판</div>
                     </Link>
 
