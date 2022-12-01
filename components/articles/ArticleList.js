@@ -13,7 +13,7 @@ export default function ArticleList({title, category}) {
             <ul className='list-unstyled'>
                 {data?.data.map(article => (
                     <li key={article.id.toString()} className='flex flex-row'>
-                        <Link href={`articles/${category}/${article.id}`}>
+                        <Link href={`/articles/${category}/${article.id}`}>
                             <span className='mr-2'>{ article.id }</span>
                             <a>{article.subject}</a>
                         </Link>
