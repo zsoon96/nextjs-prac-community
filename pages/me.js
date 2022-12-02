@@ -1,16 +1,29 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Cookies from 'universal-cookie';
 import Layout from "../components/Layout";
+import authAtom from "../stores/authAtom";
+import {useAtom} from "jotai";
+import {useRouter} from "next/router";
 
 export default function Me() {
     const [profile, setProfile] = useState({})
+    const [ , setAuth] = useAtom(authAtom)
+    const router = useRouter()
 
     useEffect(() => {
         axios.get(`${process.env.API_HOST}/me`)
             .then(response => setProfile(response.data))
             .catch(error => console.warn(error))
     }, [])
+
+    const logout = useCallback(() =>{
+        const cookie = new Cookies()
+        cookie.remove('token')
+        setAuth(auth => ({...auth, token: null, user: null}))
+        delete axios.defaults.headers.common.Authorization
+        router.push('/')
+    })
 
     return <Layout>
         <div className='container'>
@@ -22,6 +35,8 @@ export default function Me() {
                 <dt>가입일시</dt>
                 <dd>{profile.created_at}</dd>
             </d1>
+
+            <button className='btn btn-danger' onClick={logout}>로그아웃</button>
         </div>
     </Layout>
 }
