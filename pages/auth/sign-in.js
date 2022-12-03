@@ -5,6 +5,7 @@ import {useRouter} from "next/router";
 import Cookies from 'universal-cookie';
 import {useAtom} from "jotai";
 import authAtom from "../../stores/authAtom";
+import {error} from "next/dist/build/output/log";
 
 // 이메일 주소 정규식 검증 코드
 const emailRegExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
@@ -51,6 +52,10 @@ export default function SignIn() {
                             // cookies.set('저장명', 데이터, 쿠키 적용 범위)
                             cookies.set( 'token', token, { path: '/'})
                             setAuth(auth => ({ ...auth, token }))
+                            // 로그인 직후에 사용자 정보 반영
+                            axios.get(`${process.env.API_HOST}/me`)
+                                .then(response => setAuth( auth => ({...auth, user: response.data})))
+                                .catch(() => {})
                             // router.query.ref에 값이 있으면 ref 뒤 경로로 이동하고, 없으면 me로 이동
                             router.push(router.query.ref ?? '/me')
                         })
