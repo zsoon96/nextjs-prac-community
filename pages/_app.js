@@ -29,6 +29,8 @@ function MyApp({ Component, pageProps }) {
   return(
       <>
         <Head>
+            {/* 페이지별 별도 title 설정이 없을 경우, 아래의 타이틀로 적용 */}
+            <title>Community</title>
           {/* import tailwind css */}
           <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
           {/* import bootstrap */}
