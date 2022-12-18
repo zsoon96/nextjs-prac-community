@@ -1,4 +1,6 @@
 import useFetch from "../../hooks/useFetch";
+// 리액트의 '\n 또는 \r\n'을 HTML의 '<br>'로 변환해주는 라이브러리
+import nl2br from 'react-nl2br';
 
 export default function ArticleView({id}) {
     // CSR로 데이터 페칭 - 검색엔진 반영 x
@@ -9,6 +11,6 @@ export default function ArticleView({id}) {
     return <div className="container">
         <h1>{data?.subject}</h1>
         <hr />
-        <p>{data?.content}</p>
+        <p>{nl2br(data?.content)}</p>
     </div>
 }

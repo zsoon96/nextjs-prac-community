@@ -1616,6 +1616,11 @@ react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-nl2br@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-nl2br/-/react-nl2br-1.0.4.tgz#20079e2660b9e9a5293b115466e3749abeed6d87"
+  integrity sha512-KQ+uwmjYk3B04xDl0hus2OeGoqkR8qkoyDBtsIqVacOUMNeaP0W+r/+anded2ehii/FlgFqEuu0T72CJLWFp4A==
+
 react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
